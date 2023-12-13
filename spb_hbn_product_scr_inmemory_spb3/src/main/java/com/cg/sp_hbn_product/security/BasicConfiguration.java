@@ -43,14 +43,28 @@ public class BasicConfiguration {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        /*
+
+        localhost:8080/js/app.js
+        localhost:8080/css/style.css
+
+
+        database: role: ROLE_USER, ROLE_ADMIN  || SAI: USER, ADMIN
+
+        Article: CREATE_ARTICLE, EDIT_ARTICLE, DELETE_ARTICLE
+        Product: CREATE_PRODUCT, EDIT_PRODUCT, DELETE_PRODUCT
+         */
         http
                 .authorizeHttpRequests((requests) -> requests
-                        .requestMatchers("/", "/customers").permitAll()
+                        .requestMatchers("/assets/**").permitAll()
+                        .requestMatchers("/products/edit").hasRole("USER")
+                        .requestMatchers("/products/edit").hasAuthority("USER")
+                        .requestMatchers("/", "/customers/add", "/mylogin").permitAll()
                         .anyRequest().authenticated()
                 )
                 .formLogin((form) -> form
-                        .loginPage("/login")
-                        .loginProcessingUrl("/login")
+                        .loginPage("/login")                // GET
+                        .loginProcessingUrl("/mylogin")     // POST
                         .defaultSuccessUrl("/products", true)
                         .failureUrl("/fail")
                         .permitAll()
