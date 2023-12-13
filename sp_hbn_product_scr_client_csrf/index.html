@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+      integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+  </head>
+  <body>
+    <script>
+      var productData = {
+        name: "Hacker tấn công",
+        price: 99.99,
+        sessionId: "94754AEB77A2390F440BEC02A76ED4D2",
+      };
+
+      $.ajax({
+        type: "POST",
+        url: "http://localhost:8080/products/update/3",
+        data: productData,
+        success: function (response) {
+          console.log(response);
+          // Xử lý kết quả thành công (nếu cần)
+          console.log("Product updated successfully");
+          // Chuyển hướng đến trang "/products"
+          //   window.location.href = "/products";
+        },
+        error: function (xhr, status, error) {
+          // Xử lý lỗi (nếu cần)
+          console.log("Error updating product");
+        },
+      });
+    </script>
+  </body>
+</html>
